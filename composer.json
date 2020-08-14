@@ -1,0 +1,22 @@
+{
+    "name": "infobird/openapi",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wangfei",
+            "email": "wangfei@infobird.com"
+        }
+    ],
+    "require": {
+        "php":">=5.3"
+    },
+    "require-dev" : {
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "~1.0"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"openapi\\": "src/openapi"}
+    }
+}
