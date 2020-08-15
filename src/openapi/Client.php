@@ -9,15 +9,23 @@
  */
 namespace Infobird\Openapi;
 
+use Infobird\Openapi\Core;
 
-class Client {
-
-
-    public function __construct(){
-            //echo 'hello'
+/**
+ * Clase Client
+ *
+ * Object store infobird openapi client class.
+ */
+class Client
+{
+    public function __construct()
+    {
+        //echo 'hello'
     }
 
-    public  function auth(){
-        echo 'hello';exit;
+    public function auth()
+    {
+        echo 'hello';
+        exit;
     }
 }
