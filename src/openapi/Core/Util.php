@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 11:35:23
+ * @LastEditTime: 2020-08-17 13:58:28
  */
 namespace Infobird\Openapi\Core;
 
@@ -68,9 +68,9 @@ class Util
             curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
             $orders = curl_exec($ch2);
             if ($orders == false) {
-                self::writeLog('error:'.curl_error($ch2), 'curl_error');
+                //self::writeLog('error:'.curl_error($ch2), 'curl_error');
             }
-            self::writeLog('data:'.$orders, 'curl_return');
+            //self::writeLog('data:'.$orders, 'curl_return');
             curl_close($ch2);
             return $orders;
         } catch (Exception $e) {
@@ -113,5 +113,31 @@ class Util
     public static function getRootPath()
     {
         return dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
+    }
+
+     /**
+     * copy from Oss file
+     * Check if all dependent extensions are installed correctly.
+     * For now only "curl" is needed.
+     * @throws IbException
+     */
+    public static function checkEnv()
+    {
+        if (function_exists('get_loaded_extensions')) {
+            //Test curl extension
+            $enabled_extension = array("curl");
+            $extensions = get_loaded_extensions();
+            if ($extensions) {
+                foreach ($enabled_extension as $item) {
+                    if (!in_array($item, $extensions)) {
+                        throw new IbException("Extension {" . $item . "} is not installed or not enabled, please check your php env.");
+                    }
+                }
+            } else {
+                throw new IbException("function get_loaded_extensions not found.");
+            }
+        } else {
+            throw new IbException('Function get_loaded_extensions has been disabled, please check php config.');
+        }
     }
 }

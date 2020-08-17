@@ -10,19 +10,19 @@
 
 ### first
 
-~~~sh
+~~~ sh
 composer require infobird/openapi
 ~~~
 some file you need to add 
-~~~php
+~~~ php
 require './vendor/autoload.php';
 ~~~
 
 ### second  
 
-~~~php
+~~~ php
 use \Infobird\Openapi\Client;
-$c = new Client();
+$c = new Client($token,$systemId,$corpType);
 echo $c->auth();
 ~~~
 
