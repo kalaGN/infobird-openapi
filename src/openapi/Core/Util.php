@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 11:19:25
+ * @LastEditTime: 2020-08-17 11:35:23
  */
 namespace Infobird\Openapi\Core;
 
@@ -106,12 +106,12 @@ class Util
     }
 
     /**
-     * 
+     * for find the infobird config.ini
      *
      * @return void
      */
     public static function getRootPath()
     {
-        return dirname(dirname(dirname(dirname(dirname(__FILE__)))));
+        return dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
     }
 }
