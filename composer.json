@@ -17,6 +17,6 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": {"Infobird\\Openapi\\": "src/openapi"}
+        "psr-4": {"Infobird\\Openapi\\": "src/openapi","Infobird\\Openapi\\Core\\": "src/openapi/Core"}
     }
 }

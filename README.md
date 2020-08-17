@@ -10,6 +10,10 @@
 
 ### first
 
+~~~sh
+composer require infobird/openapi
+~~~
+some file you need to add 
 ~~~php
 require './vendor/autoload.php';
 ~~~
