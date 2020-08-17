@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 13:58:28
+ * @LastEditTime: 2020-08-17 17:54:07
  */
 namespace Infobird\Openapi\Core;
 
@@ -24,7 +24,7 @@ class Util
      * @param  string  $type   false post,true get
      * @return array   array
      */
-    public static function verifyservice($action, $param, $type=false, $name = 'corpscope')
+    public static function callRemote($action, $param, $type=false, $name = 'corpscope')
     {
         $param = http_build_query($param, '', '&');
 
@@ -37,9 +37,9 @@ class Util
         
         $response = self::_curl($url, $type, $param);
 
-        self::writeLog('url::'.$url.$param.'# response::'.$response, 'openapi');
+        //self::writeLog('url::'.$url.$param.'# response::'.$response, 'openapi');
 
-        $response = json_decode($response, true);
+        //$response = json_decode($response, true);
 
         return $response;
     }

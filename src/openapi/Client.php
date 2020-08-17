@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 17:40:10
+ * @LastEditTime: 2020-08-17 17:52:40
  */
 namespace Infobird\Openapi;
 
@@ -46,11 +46,12 @@ class Client
 
         $params = array(
             'token'=>$this->token,
-            'enterprise_identify'=>$corp_id,
+            //'enterprise_identify'=>$corp_id,
             'isfz'=>$this->corpType,
+            'system_identify'=>$this->systemId,
         );
         //调用用户中心鉴权接口
-        $info =  Util::verifyservice('v1/auth/verfytoken/?', $params, false, 'openapi');
+        $info =  Util::callRemote('v1/auth/verfytoken/?', $params, false, 'openapi');
 
         if($info){
             return $info;
