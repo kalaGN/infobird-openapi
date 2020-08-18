@@ -4,7 +4,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:38:55
  * @LastEditors: afei
- * @LastEditTime: 2020-08-18 11:42:24
+ * @LastEditTime: 2020-08-18 11:48:32
 -->
 
 # infobird openapi SDK for PHP
@@ -35,7 +35,12 @@ require './vendor/autoload.php';
 ~~~ php
 use \Infobird\Openapi\Client;
 $c = new Client($token,$systemId,$corpType);
-echo $c->auth();
+$res = $c->auth();
+if($res['code']==0){
+    //success
+}else{
+    //error echo $res['msg'];
+}
 ~~~
 
 ## enjoy it
