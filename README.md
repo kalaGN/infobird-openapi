@@ -4,10 +4,12 @@
  * @Author: afei
  * @Date: 2020-08-14 13:38:55
  * @LastEditors: afei
- * @LastEditTime: 2020-08-18 14:40:43
+ * @LastEditTime: 2020-08-18 15:28:11
 -->
 
 # infobird openapi SDK for PHP
+
+https://packagist.org/packages/infobird/openapi
 
 ## Run environment
 
