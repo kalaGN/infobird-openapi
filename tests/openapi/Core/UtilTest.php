@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-18 15:05:24
  * @LastEditors: afei
- * @LastEditTime: 2020-08-18 15:07:02
+ * @LastEditTime: 2020-08-18 17:01:01
  */
 
 namespace Infobird\Tests;
@@ -15,11 +15,9 @@ class UtilTest extends \PHPUnit_Framework_TestCase
 
 
 
-    public function testParseValidXml()
+    public function testcallRemote($action, $param, $type=false, $name = 'corpscope')
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new AclResult($response);
-        $this->assertEquals("public-read", $result->getData());
+        $this->assert(1,1);
     }
 
  
