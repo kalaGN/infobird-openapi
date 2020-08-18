@@ -5,10 +5,10 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 17:54:07
+ * @LastEditTime: 2020-08-18 10:52:47
  */
 namespace Infobird\Openapi\Core;
-
+use Infobird\Openapi\Core\IbException;
 /**
  * Class Util
  *
@@ -29,11 +29,19 @@ class Util
         $param = http_build_query($param, '', '&');
 
         //self::writeLog($action.'::'.$param, 'fz');
+        try {
+            $config = self::loadConfig();
+        } catch (\Exception $e) {
+            echo $e->getMessage();exit;
+        }
+        if(isset($config[$name.'.url'])){
+            $option = $config[$name.'.url'];
+            $url = $option.$action;
+        }else{
+            $file = self::getConfigFile();
+            throw new Exception('config '.$name.'.url not found in'.$file);
+        }
 
-        $config = self::loadConfig();
-      
-        $option = $config[$name.'.url'];
-        $url = $option.$action;
         
         $response = self::_curl($url, $type, $param);
 
@@ -45,7 +53,7 @@ class Util
     }
 
     /**
-     * 
+     *
      *
      * @param [type] $url
      * @param boolean $type
@@ -95,14 +103,30 @@ class Util
     }
 
     /**
-     * 
+     *
      *
      * @return void
      */
-    public static function loadConfig(){
-
+    public static function loadConfig()
+    {
         $file = self::getRootPath().'/config.ini';
-        return  parse_ini_file($file);
+        if(!is_file($file)){
+            throw new IbException('the file '.$file.' is need');
+        }
+        $config = parse_ini_file($file);
+        if(!$config){
+            throw new IbException('parse '.$file.' error');
+        }
+        return $config;
+    }
+
+    /**
+     * show the config file path
+     *
+     * @return void
+     */
+    public static function getConfigFile(){
+        return self::getRootPath().'/config.ini';
     }
 
     /**
@@ -115,12 +139,12 @@ class Util
         return dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
     }
 
-     /**
-     * copy from Oss file
-     * Check if all dependent extensions are installed correctly.
-     * For now only "curl" is needed.
-     * @throws IbException
-     */
+    /**
+    * copy from Oss file
+    * Check if all dependent extensions are installed correctly.
+    * For now only "curl" is needed.
+    * @throws IbException
+    */
     public static function checkEnv()
     {
         if (function_exists('get_loaded_extensions')) {

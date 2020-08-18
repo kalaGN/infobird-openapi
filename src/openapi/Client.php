@@ -51,7 +51,12 @@ class Client
             'system_identify'=>$this->systemId,
         );
         //调用用户中心鉴权接口
-        $info =  Util::callRemote('v1/auth/verfytoken/?', $params, false, 'openapi');
+        try{
+            $info =  Util::callRemote('v1/auth/verfytoken/?', $params, false, 'openapi');
+
+        }catch(\Exception $e){
+            echo $e->getMessage();exit;
+        }
 
         if($info){
             return $info;
