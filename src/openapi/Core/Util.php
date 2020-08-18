@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-18 10:52:47
+ * @LastEditTime: 2020-08-18 10:57:59
  */
 namespace Infobird\Openapi\Core;
 use Infobird\Openapi\Core\IbException;
@@ -39,7 +39,7 @@ class Util
             $url = $option.$action;
         }else{
             $file = self::getConfigFile();
-            throw new Exception('config '.$name.'.url not found in'.$file);
+            throw new IbException('config '.$name.'.url not found in'.$file);
         }
 
         
