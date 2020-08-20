@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-17 17:52:40
+ * @LastEditTime: 2020-08-20 17:52:31
  */
 namespace Infobird\Openapi;
 
@@ -27,6 +27,10 @@ class Client
     //
     private $corpType;
 
+    //
+    private $passKey;
+
+    
     /**
      * 
      *
@@ -41,6 +45,10 @@ class Client
         $this->corpType = $corpType;
     }
 
+    public function setSecret($passkey){
+        $this->passKey = $passkey;
+    }
+
     public function auth()
     {
 
@@ -53,6 +61,36 @@ class Client
         //调用用户中心鉴权接口
         try{
             $info =  Util::callRemote('v1/auth/verfytoken/?', $params, false, 'openapi');
+
+        }catch(\Exception $e){
+            echo $e->getMessage();exit;
+        }
+
+        if($info){
+            return $info;
+        }else{
+            return false;
+        }
+    }
+
+    public function authtoken()
+    {
+        $time = time();
+        if(empty($this->passkey))return 'no auth to access!';exit;
+        if(empty($this->systemId))return 'systemId is empty!';exit;
+
+        $sign = sha1($this->systemId.$this->passkey.$time);
+        $params = array(
+            'token'=>$this->token,
+            'enterprise_identify'=>$corp_id,
+            'isfz'=>$this->corpType,
+            'system_identify'=>$this->systemId,
+            'time'=>$time,
+            'sign'=>$sign
+        );
+        //调用用户中心鉴权接口
+        try{
+            $info =  Util::callRemote('ver1/auth/verfytoken/?', $params, false, 'openapi');
 
         }catch(\Exception $e){
             echo $e->getMessage();exit;
