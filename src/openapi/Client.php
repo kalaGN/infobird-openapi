@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-20 17:52:31
+ * @LastEditTime: 2020-08-20 17:58:38
  */
 namespace Infobird\Openapi;
 
@@ -38,11 +38,12 @@ class Client
      * @param [type] $systemId
      * @param [type] $corpType
      */
-    public function __construct($token,$systemId='',$corpType=1)
+    public function __construct($token,$systemId='',$corpType=1, $corpId=0)
     {
         $this->token=$token;
         $this->systemId=$systemId;
         $this->corpType = $corpType;
+        $this->corpId = $corpId;
     }
 
     public function setSecret($passkey){
@@ -75,14 +76,21 @@ class Client
 
     public function authtoken()
     {
-        $time = time();
-        if(empty($this->passkey))return 'no auth to access!';exit;
-        if(empty($this->systemId))return 'systemId is empty!';exit;
-
+        $time = time();      
+        if (empty($this->passKey)) {
+            return 'no auth to access!';
+            exit;
+        
+        }
+      
+        if (empty($this->systemId)) {
+            return 'systemId is empty!';
+            exit;
+        }
         $sign = sha1($this->systemId.$this->passkey.$time);
         $params = array(
             'token'=>$this->token,
-            'enterprise_identify'=>$corp_id,
+            'enterprise_identify'=>$this->corpId,
             'isfz'=>$this->corpType,
             'system_identify'=>$this->systemId,
             'time'=>$time,
