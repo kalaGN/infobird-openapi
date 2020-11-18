@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-20 17:58:38
+ * @LastEditTime: 2020-11-18 16:49:51
  */
 namespace Infobird\Openapi;
 
@@ -104,6 +104,41 @@ class Client
             echo $e->getMessage();exit;
         }
 
+        if($info){
+            return $info;
+        }else{
+            return false;
+        }
+    }
+
+    public function getpriv(){
+        $time = time();      
+        if (empty($this->passKey)) {
+            return 'no auth to access!';
+            exit;
+        
+        }
+      
+        if (empty($this->systemId)) {
+            return 'systemId is empty!';
+            exit;
+        }
+        $sign = sha1($this->systemId.$this->passkey.$time);
+        $params = array(
+            'token'=>$this->token,
+            'enterprise_identify'=>$this->corpId,
+            'isfz'=>$this->corpType,
+            'system_identify'=>$this->systemId,
+            'time'=>$time,
+            'sign'=>$sign
+        );
+        //调用用户中心鉴权接口
+        try{
+            $info =  Util::callRemote(' v2/rbac/getaccountprivlist/?', $params, false, 'openapi');
+
+        }catch(\Exception $e){
+            echo $e->getMessage();exit;
+        }
         if($info){
             return $info;
         }else{
