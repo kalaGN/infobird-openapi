@@ -111,7 +111,7 @@ class Client
         }
     }
 
-    public function getpriv(){
+    public function getpriv($account){
         $time = time();      
         if (empty($this->passKey)) {
             return 'no auth to access!';
@@ -125,16 +125,16 @@ class Client
         }
         $sign = sha1($this->systemId.$this->passkey.$time);
         $params = array(
-            'token'=>$this->token,
+            'account'=>$account,
             'enterprise_identify'=>$this->corpId,
             'isfz'=>$this->corpType,
             'system_identify'=>$this->systemId,
             'time'=>$time,
-            'sign'=>$sign
+            'sign'=>$sign,
         );
         //调用用户中心鉴权接口
         try{
-            $info =  Util::callRemote(' v2/rbac/getaccountprivlist/?', $params, false, 'openapi');
+            $info =  Util::callRemote('v2/rbac/getaccountprivlist', $params, false, 'openapi');
 
         }catch(\Exception $e){
             echo $e->getMessage();exit;
