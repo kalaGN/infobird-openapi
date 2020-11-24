@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-08-18 11:08:02
+ * @LastEditTime: 2020-11-24 11:55:59
  */
 namespace Infobird\Openapi\Core;
 use Infobird\Openapi\Core\IbException;
@@ -24,11 +24,16 @@ class Util
      * @param  string  $type   false post,true get
      * @return array   array
      */
-    public static function callRemote($action, $param, $type=false, $name = 'corpscope')
+    public static function callRemote($action, $param=array(), $isget=false, $name = 'corpscope')
     {
-        $param = http_build_query($param, '', '&');
+        if(empty($action)){
+            return false;
+        }
+        
+        if($isget){
+            $param = http_build_query($param, '', '&');
+        }
 
-        //self::writeLog($action.'::'.$param, 'fz');
         try {
             $config = self::loadConfig();
         } catch (\Exception $e) {
@@ -41,14 +46,8 @@ class Util
             $file = self::getConfigFile();
             throw new IbException('config '.$name.'.url not found in '.$file);
         }
-
         
-        $response = self::_curl($url, $type, $param);
-
-        //self::writeLog('url::'.$url.$param.'# response::'.$response, 'openapi');
-
-        //$response = json_decode($response, true);
-
+        $response = self::_curl($url, $isget, $param);
         return $response;
     }
 

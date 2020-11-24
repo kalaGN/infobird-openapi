@@ -5,7 +5,7 @@
  * @Author: afei
  * @Date: 2020-08-14 13:33:11
  * @LastEditors: afei
- * @LastEditTime: 2020-11-18 16:49:51
+ * @LastEditTime: 2020-11-24 11:54:28
  */
 namespace Infobird\Openapi;
 
@@ -48,6 +48,7 @@ class Client
 
     public function setSecret($passkey){
         $this->passKey = $passkey;
+        return $this;
     }
 
     public function auth()
